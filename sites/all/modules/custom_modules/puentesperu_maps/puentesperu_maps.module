@@ -14,3 +14,17 @@ function puentesperu_maps_views_pre_render(&$view) {
     $view->attachment_after = 'hello world';
   }
 }
+
+function puentesperu_get_image_marker_url($nid) {
+  $node = node_load($nid);
+  if (isset($node->field_current_status[LANGUAGE_NONE][0]['value'])) {
+    switch ($node->field_current_status[LANGUAGE_NONE][0]['value']) {
+      case 'notransitable':
+        return 'sites/all/themes/csalud/img/rojo.png';
+      case 'observacion':
+        return 'sites/all/themes/csalud/img/ambar.png';
+      case 'normal':
+        return 'sites/all/themes/csalud/img/verde.png';
+    }
+  }
+}
