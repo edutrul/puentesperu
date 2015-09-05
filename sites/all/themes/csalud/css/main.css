@@ -413,3 +413,22 @@ main {
 #facetapi-facet-search-apicampanas-block-field-is-free .last a:hover {
   background: #FF3F00;
 }
+
+.view-id-puentes {
+	position: relative;
+	background-color: red;
+	overflow: auto;
+	width: 100%
+
+}
+.view-id-puentes .attachment {
+	width: 70%;
+	background-color: #999;
+	float: right;
+
+}
+.view-id-puentes .view-content {
+	width: 30%;
+	background-color: #ccc;
+	float: left;
+}
