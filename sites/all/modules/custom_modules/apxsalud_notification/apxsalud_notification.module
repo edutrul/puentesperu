@@ -1,0 +1,209 @@
+<?php
+
+/**
+ * Implements hook_block_info
+ */
+function apxsalud_notification_block_info() {
+  $blocks['apxsalud_subscribe'] = array(
+    'info' => 'Bloque Enviar Recordatorio',
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  $blocks['apxsalud_reports_subscribe'] = array(
+    'info' => 'Bloque Reportes subscritos',
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view
+ */
+function apxsalud_notification_block_view($delta = '') {
+  error_reporting(E_ALL);
+  ini_set('display_errors', '1');
+  $block = array();
+
+  switch ($delta) {
+    case 'apxsalud_subscribe':
+      $block['subject'] = 'Enviar Recordatorio - un día antes';
+      $block['content'] = drupal_get_form('apxsalud_notification_form_subscribe');;
+      break;
+    case 'apxsalud_reports_subscribe':
+      $block['subject'] = t('Cantidad suscritos por campaña');
+      $block['content'] = apxsalud_cantidad_suscritos_por_campania();
+      break;
+  }
+  return $block;
+}
+
+function apxsalud_cantidad_suscritos_por_campania() {
+  $chart = array(
+    '#type' => 'chart',
+    '#chart_type' => 'pie',
+    '#chart_library' => 'google',
+    '#legend_position' => 'right',
+    '#data_labels' => TRUE,
+    '#tooltips' => FALSE,
+  );
+  $chart['pie_data'] = array(
+    '#type' => 'chart_data',
+    '#title' => t('Gender'),
+    '#labels' => array('Noticia Positiva', 'Noticia Negativa'),
+    '#data' => array(4, 9),
+  );
+
+  return '<div class="gpol-graph-voting"><span>.</span>' . drupal_render($chart) . '</div>';
+}
+
+function apxsalud_notification_form_subscribe() {
+  $nid = 0;
+  $node = menu_get_object();
+  if(!is_null($node) && isset($node->nid) ) {
+    $nid = $node->nid;
+  }
+  
+  $form['userinfo'] = array(
+    '#type' => 'textfield',
+    '#title' => 'Email o Celular',
+    '#default_value' => '',
+    '#size' => 60,
+    '#maxlength' => 255,
+    '#required' => FALSE,
+  );
+  $form['nodeid'] = array(
+    '#type' => 'hidden',
+    '#value' => $nid,
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+  );
+  $form['feedback_message'] = array(
+    '#markup' => '',
+  );
+  return $form;
+}
+
+/**
+ * Validate if userinfo is email or phone (numeric) 
+ */
+function apxsalud_notification_form_subscribe_validate($form, &$form_state) {
+  //is_numeric
+  if(!ctype_digit($form_state['values']['userinfo']) && 
+        !valid_email_address($form_state['values']['userinfo'])) {
+    form_set_error('userinfo', '');
+    
+    $form_state['complete form']['feedback_message']['#markup'] = '<div class="subscribe-message">Coloque un correo electrónico o número de celular válido</div>';
+  } 
+}
+
+/**
+ * When the user subscribe register an emal or phone number
+ */
+function apxsalud_notification_form_subscribe_submit($form, &$form_state) {
+
+  //If is register, ignore
+  $userinfo = $form_state['values']['userinfo'];
+  $nodeid = $form_state['values']['nodeid'];
+  
+  if(ctype_digit($nodeid) || valid_email_address($userinfo)){
+    //Busca un registro con estos dos datos
+    
+    //TODO: Si se reutilizan eventos se debería tener otra condicion, indicando
+    //por ejemplo que la notificacion no ha sido enviada
+    $result = db_select('campain_subscriber', 'c')
+      ->condition('nid', $nodeid, '=')
+      ->condition('userinfo', $userinfo,'=')
+      ->fields('c', array('sid', 'nid'))
+      ->execute();
+      
+    //Mensaje que correo o celular ya está agregado
+    if($record = $result->fetchAssoc()){
+    //  $form_state['complete form']['feedback_message']['#markup'] = '<div class="subscribe-message">El correo o número celular ya está en la lista.</div>';
+      return;
+    }
+    
+    $node = node_load($nodeid);
+    $date = field_get_items('node', $node, 'field_date');
+    $date = $date[0]['value'];
+    $message = $node->title . ' - ' . format_date($date, 'Campaña Salud Format Date');
+    
+    //La notificacion debe ser un día antes de la fecha de la campaña
+    $notificationdate = strtotime("-1 days", $date);
+
+    //Graba el registro
+    $sid = db_insert('campain_subscriber') // Table name no longer needs {}
+      ->fields(array(
+        'nid' => $nodeid,
+        'userinfo' => $userinfo,
+        'date' => $notificationdate,
+        'message' => $message,
+        //'created' => REQUEST_TIME,
+     ))
+     ->execute(); 
+      
+     //Mensaje de que se suscribio correctamente
+    // $form_state['complete form']['feedback_message']['#markup'] = '<div class="subscribe-message">Se agregó su recordatorio.</div>';
+  }
+}
+
+/**
+ * Implements hook_cron
+ */
+//function apxsalud_notification_cron() {
+  //apxsalud_notification_send_notifications();
+//}
+
+//TODO: Change to better idea
+function apxsalud_notification_init() {
+  apxsalud_notification_send_notifications();
+}
+
+/**
+ * Envia las notificaciones un dia antes
+ */
+function apxsalud_notification_send_notifications() {
+  global $language;
+
+  //Recupera 10 registros de la tabla campain_subscriber que cumplan las siguientes condiciones
+    // No hallan sido enviados (submitted = NULL)
+    // La fecha de la notificación sea ese día (la fecha de la campaña sea al día siguiente)
+   $result = db_select('campain_subscriber', 'c')
+    //  ->where('DATE(FROM_UNIXTIME(`date`) = CURDATE()')
+      ->condition('submitted', 0, '=')
+      ->fields('c', array('sid', 'nid', 'userinfo', 'message'))
+      ->execute();
+          
+  //Recorre los registros y comienza a hacer el envío de correo y sms
+  while($record = $result->fetchAssoc()) {
+    $userinfo = $record['userinfo'];
+    $sid = $record['sid'];
+    $message = $record['message'];
+  
+    if(ctype_digit($userinfo)) {
+      if(messagebird_send($message, '51' . $userinfo)){
+        apxsalud_notification_set_summited($sid);
+      }
+    }
+    else if(valid_email_address($userinfo)) {
+      if(mail($userinfo, 'alertassalud.org - Recordatorio' , $message)){
+        apxsalud_notification_set_summited($sid);
+      }
+    }
+    else {
+      //En caso no sea ni número, ni correo cierra la notificacion para que
+      //no intente enviarle posteriormente
+      apxsalud_notification_set_summited($sid);
+    }  
+  } 
+}
+
+function apxsalud_notification_set_summited($sid) {
+    return db_update('campain_subscriber')
+      ->fields(array(
+        'submitted' => time(),
+      ))
+      ->condition('sid', $sid, '=')
+      ->execute();  
+}
+

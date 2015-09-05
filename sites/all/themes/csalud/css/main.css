@@ -1,0 +1,415 @@
+body {
+  background: #e6f3fd;
+  font-family: 'Lato', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: #3897db;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+}
+
+/*-----------------------------------------------------------------------------
+ *           HEADER            
+ *---------------------------------------------------------------------------*/
+.main-heading {
+  font-size: 70px;
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 5px 0 0;
+  margin-bottom: 0;
+}
+
+.logo-2 {
+  opacity: 0.8;
+}
+ 
+.logo-3 {
+  font-size: 20px;
+}
+ 
+
+.main-heading a {
+  color: #fff;
+}
+
+.main-heading a:hover {
+  text-decoration: none;
+}
+
+.main-header {
+  background: #3fa9f5;
+}
+
+/*-----------------------------------------------------------------------------
+ *           MENU             
+ *---------------------------------------------------------------------------*/
+
+.menu {
+  text-align: center;
+}
+.menu li {
+  display: inline-block;
+}
+ 
+.menu li a {
+  color: #fff;
+  font-weight: 700;
+  font-size: 17px;
+}
+
+.menu li a:hover {
+  background: transparent;
+  text-decoration: underline;
+}
+
+.menu li a:focus {
+  background: transparent;
+}
+main {
+  padding-top: 50px;
+}
+ 
+
+/*-----------------------------------------------------------------------------
+ *           TAGS            
+ *---------------------------------------------------------------------------*/
+/* Base styles to tags */
+.tag-link  {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.tag-link a, 
+.facetapi-facetapi-links a,
+.field-type-taxonomy-term-reference a {
+  background: #666;
+  color: #fff;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 2px 8px;
+  text-align: center;
+  text-transform: lowercase;
+}
+
+.facetapi-facetapi-links .glyphicon {
+  font-size: 13px;
+}
+ 
+.tag-link a:hover, 
+.facetapi-facetapi-links a,
+.field-type-taxonomy-term-reference a:hover {
+  text-decoration: none;
+}
+
+.tag-link a:active, 
+.field-type-taxonomy-term-reference a:active {
+  background-color: #f7994b;
+  text-decoration: none;
+}
+
+.tag-link-range a {
+  margin-right: 5px;
+}
+
+/* TAG COLORS */
+
+/* Rango de edades */
+.field-name-field-campaign-type a, /* Node campaign */
+#facetapi-facet-search-apicampanas-block-field-age-range a, /* facetapi filter */
+.tag-link-range a {
+  background-color: #f7ae71;
+}
+
+.field-name-field-campaign-type a:hover, /* Node campaign */
+#facetapi-facet-search-apicampanas-block-field-age-range a:hover, /* facetapi filter */
+.tag-link-range a:hover {
+  background-color: #f77f1a;
+}
+
+/* Tipo de campania */
+.field-name-field-age-range a,
+#facetapi-facet-search-apicampanas-block-field-campaign-type a, /* facetapi filter */
+.tag-link-type a {
+  color: #3897DB;
+  background-color: #fff;
+}
+
+.field-name-field-age-range a:hover,
+#facetapi-facet-search-apicampanas-block-field-campaign-type a:hover, /* facetapi filter */
+.tag-link-type a:hover {
+  background-color: #3897DB;
+  color: #fff;
+}
+
+/* Distrito */
+#facetapi-facet-search-apicampanas-block-field-establishmentfield-est-distrito a,
+.tag-link-district a {
+  background: #b98255;
+}
+ 
+#facetapi-facet-search-apicampanas-block-field-establishmentfield-est-distrito a:hover,
+.tag-link-district a:hover {
+  background: #b96b2a;
+}
+
+/*-----------------------------------------------------------------------------
+ *           HOMEPAGE            
+ *---------------------------------------------------------------------------*/
+.front .region-content {
+  background: #d5ebfc;
+  padding: 20px;
+}
+
+.view-campaias-salud-search .views-row {
+  border-bottom: 1px solid #fff;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.view-campaias-salud-search {
+  position: relative;
+}
+ 
+.views-exposed-form {
+  position: absolute;
+  right: -38px;
+  top: -57px;
+}
+
+.views-exposed-form .form-type-radio {
+  display: inline-block;
+}
+
+.views-exposed-form label {
+  display: none;
+}
+ 
+.views-widget label {
+  display: block;
+}
+
+.campaign-title-date-container {
+  font-size: 19px;
+  display: inline-block;
+  margin-right: 10px;
+}
+ 
+.campaign-title-date-container a:hover,
+.campaign-title:hover {
+  color: #095D9B;
+  text-decoration: none;
+}
+ 
+.campaign-title {
+  font-size: 19px;
+  margin: 0;
+}
+
+.campaign-date,
+.campaign-title {
+  display: inline-block;
+}
+
+.campaign-link {
+  float: right;
+}
+
+.campaign-link a {
+  background: #3fa9f5;
+  color: #fff;
+  display: block;
+  padding: 5px 10px;
+}
+ 
+.campaign-link a:hover {
+  background: #0b89e4;
+  text-decoration: none;
+}
+
+/*-----------------------------------------------------------------------------
+ *           FILTERS            
+ *---------------------------------------------------------------------------*/
+.facetapi-facetapi-links {
+  padding: 0;
+}
+ 
+.facetapi-facetapi-links li {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.facetapi-facetapi-links a {
+  font-size: 17px;
+  padding: 5px 10px;
+}
+
+/* Facet when activated */
+.facetapi-active {
+  margin-right: 10px;
+}
+ 
+/*-----------------------------------------------------------------------------
+ *           NODE            
+ *---------------------------------------------------------------------------*/
+.no-padding-right {
+  padding-right: 0;
+}
+ 
+.no-padding-left {
+  padding-left: 0;
+}
+
+/* DATE FIELD */
+.field-name-field-date {
+  background: #fff;
+  font-size: 17px;
+  padding: 10px;
+  margin: 10px 0;
+}
+ 
+.field-name-field-date .glyphicon {
+  margin-right: 5px;
+}
+ 
+.field-type-taxonomy-term-reference .field-item {
+  margin: 10px 0;
+}
+
+/* Taxonomies */
+.field-type-taxonomy-term-reference {
+  display: inline-block;
+}
+
+.node-campania {
+  padding-bottom: 20px;
+}
+ 
+.node-campania .content {
+  background: #fff;
+  margin-top: -35px;
+  padding: 40px 20px 10px;
+}
+ 
+.node-campania .content p {
+  color: #666;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 10px 0 20px;
+}
+
+.free {
+  background: #F77F1A;
+  color: #fff;
+  text-align: center;
+  font-weight: 900;
+}
+
+.node-heading {
+  margin-bottom: 10px;
+}
+ 
+.campaign-node-title {
+  font-size: 35px;
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+ 
+.node-type-campania #page-title {
+  display: none;
+}
+
+.field-name-field-date {
+  background: #3897DB;
+  color: #fff;
+}
+ 
+.view-establecimiento-salud-map .views-field-title {
+  padding-right: 20px;
+  text-align: right;
+}
+
+/* Overrides Geolocation module CSS */
+.geolocation-help, .geolocation-map {
+  margin-top: 0;
+}
+
+.establishment-meta .field {
+  margin-bottom: 7px;
+}
+ 
+/* SUbscription block */
+.block-apxsalud-notification {
+  background: #3FA9F5;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+ 
+.block-apxsalud-notification .block-title {
+  color: #fff;
+  font-size: 24px;
+}
+
+.block-apxsalud-notification label {
+  color: #fff;
+}
+
+.block-apxsalud-notification .form-submit {
+  background: #F77F1A;
+  border-color: #F77F1A;
+}
+
+/*-----------------------------------------------------------------------------
+ *           FOOTER            
+ *---------------------------------------------------------------------------*/
+.main-footer {
+  color: #fff;
+  background: #3fa9f5;
+  text-align: center;
+  padding: 10px;
+  margin-top: 20px;
+}
+ 
+.main-footer a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/*-----------------------------------------------------------------------------
+ *           MAPA CAMPANIAS            
+ *---------------------------------------------------------------------------*/
+.campania-result h2 {
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.map-page-list ul {
+  margin: 0;
+  padding: 0;
+}
+ 
+.map-page-list li .glyphicon {
+  margin-right: 5px;
+}
+
+.map-page-list li {
+  list-style: none;
+}
+
+#facetapi-facet-search-apicampanas-block-field-is-free .first a {
+  display: none;
+}
+
+#facetapi-facet-search-apicampanas-block-field-is-free .last a {
+  background: rgba(255, 63, 0, 0.65);
+}
+
+#facetapi-facet-search-apicampanas-block-field-is-free .last a:hover {
+  background: #FF3F00;
+}

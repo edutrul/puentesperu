@@ -1,0 +1,4 @@
+name = Appsxsalud Map
+description = Appsxsalud Map description
+package = custom
+core = 7.x

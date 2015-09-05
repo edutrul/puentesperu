@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * Implementas hook_schema
+ */
+function apxsalud_notification_schema() {
+  $schema ['campain_subscriber'] = array(
+    'description' => 'Subscribers from a campain.',
+    'fields' => array(
+      'sid' => array(
+        'description' => 'The primary identifier for a campain subscriber.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),      
+      'nid' => array(
+        'description' => 'The node identifier.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ), 
+      'userinfo' => array(
+        'description' => 'Email or phone number from subscriber.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'date' => array(
+        'description' => 'Date when this notification should be send.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'message' => array(
+        'description' => 'The message from the notification.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),  //TODO: Agregar created field, para saber cuando se suscribio la persona
+      'submitted' => array(
+        'description' => 'Timestamp of when the notification was submitted.',
+        'type' => 'int',
+        'not null' => FALSE,
+        'default' => 0,
+      ),
+      
+    ),
+    'primary key' => array('sid'),
+  );
+  return $schema;
+}
