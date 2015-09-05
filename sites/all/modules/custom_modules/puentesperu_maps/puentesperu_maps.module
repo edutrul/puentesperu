@@ -10,4 +10,7 @@ function puentesperu_maps_views_pre_render(&$view) {
   if ($view->name == 'puentes' && $view->current_display == 'page') {
     drupal_add_js(drupal_get_path('module', 'puentesperu_maps') . '/js/puentesperu-maps.js');
   }
+  if ($view->name == 'puentes' && $view->current_display == 'attachment_1') {
+    $view->attachment_after = 'hello world';
+  }
 }
