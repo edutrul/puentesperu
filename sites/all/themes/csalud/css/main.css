@@ -425,8 +425,21 @@ main {
 	width: 70%;
 	background-color: #999;
 	float: right;
-
+	position: relative;
 }
+.view-id-puentes .attachment .attachment.attachment-after {
+	width: 120px;
+	height: 60px;
+	background: rgba(250, 250, 200, 0.7);
+  	border: 1px solid #555;
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+    border-radius: 7px;
+  	padding: 5px;
+  	font-size: 11px
+}
+
 .view-id-puentes .view-content:nth-child(2) {
 	width: 30%;
 	background-color: #f9f9f9;
@@ -439,5 +452,5 @@ main {
   cursor: pointer;
 }
 .view-id-puentes .view-content:nth-child(2) .views-row:hover {
-	background-color: #eaeaea;
+	background-color: #ccc;
 }
