@@ -11,7 +11,10 @@ function puentesperu_maps_views_pre_render(&$view) {
     drupal_add_js(drupal_get_path('module', 'puentesperu_maps') . '/js/puentesperu-maps.js');
   }
   if ($view->name == 'puentes' && $view->current_display == 'attachment_1') {
-    $view->attachment_after = 'hello world';
+    $view->attachment_after = '<div class="legend">'
+        . '<div><img width="15px" src="sites/all/themes/csalud/img/rojo.png">NO TRANSITABLE</div>'
+        . '<div><img width="15px" src="sites/all/themes/csalud/img/ambar.png">OBSERVACIÓN</div>'
+        . '<div><img width="15px" src="sites/all/themes/csalud/img/verde.png">NORMAL</div></div>';
   }
 }
 
