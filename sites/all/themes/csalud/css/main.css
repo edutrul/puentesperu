@@ -413,3 +413,31 @@ main {
 #facetapi-facet-search-apicampanas-block-field-is-free .last a:hover {
   background: #FF3F00;
 }
+
+.view-id-puentes {
+	position: relative;
+	background-color: #f9f9f9;
+	overflow: auto;
+	width: 100%;
+
+}
+.view-id-puentes .attachment {
+	width: 70%;
+	background-color: #999;
+	float: right;
+
+}
+.view-id-puentes .view-content:nth-child(2) {
+	width: 30%;
+	background-color: #f9f9f9;
+	float: left;
+  border-top: 10px solid #ccc;
+}
+.view-id-puentes .view-content:nth-child(2) .views-row {
+	border-bottom: 1px solid #ccc;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.view-id-puentes .view-content:nth-child(2) .views-row:hover {
+	background-color: #eaeaea;
+}

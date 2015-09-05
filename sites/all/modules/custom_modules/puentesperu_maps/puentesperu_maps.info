@@ -1,0 +1,4 @@
+name = PuentesPeru Map
+description = PuentesPeru Map description
+package = custom
+core = 7.x

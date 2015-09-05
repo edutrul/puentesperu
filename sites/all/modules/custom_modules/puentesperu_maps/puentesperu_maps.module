@@ -1,0 +1,13 @@
+<?php
+/**
+ * @file contents for puentesperu_maps.module
+ */
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function puentesperu_maps_views_pre_render(&$view) {
+  if ($view->name == 'puentes' && $view->current_display == 'page') {
+    drupal_add_js(drupal_get_path('module', 'puentesperu_maps') . '/js/puentesperu-maps.js');
+  }
+}
